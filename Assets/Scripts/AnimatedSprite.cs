@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimatedSprites : MonoBehaviour
+public class AnimatedSprite : MonoBehaviour
 {
     public Sprite[] sprites;
 
@@ -15,18 +15,15 @@ public class AnimatedSprites : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-
     private void OnEnable()
     {
        Invoke(nameof(Animate), 0f);
     }
 
-
     private void OnDisable()
     {
         CancelInvoke();
     }
-
 
     private void Animate()
     {
@@ -40,6 +37,6 @@ public class AnimatedSprites : MonoBehaviour
             spriteRenderer.sprite = sprites[frame];
         }
 
-        Invoke(nameof(Animate), 1f / GameManager.Instance.gameSpeed);
+        Invoke(nameof(Animate), 1f / GameManager.instance.gameSpeed);
     }
 }
