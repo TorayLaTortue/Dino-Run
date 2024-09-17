@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance { get; private set;}
+    public static GameManager Instance { get; private set;}
 
     public float initialGameSpeed = 5f;
     public float gameSpeedIncrease = 0.1f;
@@ -12,18 +12,18 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null) {
-            instance = this;
+        if (Instance == null) {
+            Instance = this;
         }
-        else {
+        else { 
             DestroyImmediate(gameObject);
         }
     }
 
     private void OnDestroy()
     {
-        if (instance == this) {
-            instance = null;
+        if (Instance == this) {
+            Instance = null;
         }
     }
 
