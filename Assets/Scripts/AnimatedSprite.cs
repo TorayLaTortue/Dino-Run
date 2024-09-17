@@ -10,7 +10,7 @@ public class AnimatedSprite : MonoBehaviour
     private int frame;
 
 
-    public void awake ()
+    public void Awake ()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -37,6 +37,6 @@ public class AnimatedSprite : MonoBehaviour
             spriteRenderer.sprite = sprites[frame];
         }
 
-        Invoke(nameof(Animate), 1f / GameManager.instance.gameSpeed);
+        Invoke(nameof(Animate), 1f / GameManager.Instance.gameSpeed);
     }
 }
