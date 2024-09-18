@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6530587625765103942}
   - component: {fileID: 690952697923562441}
   - component: {fileID: 3806595108532969872}
+  - component: {fileID: 1430236910540377714}
   m_Layer: 0
   m_Name: Bird
   m_TagString: Obstacle
@@ -122,3 +123,15 @@ MonoBehaviour:
   sprites:
   - {fileID: 21300000, guid: e866f8dcde6db1145994b53813d902b1, type: 3}
   - {fileID: 21300000, guid: 448b9ee5cafffc04bbe72f2a52fa5d05, type: 3}
+--- !u!114 &1430236910540377714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2493972133332499727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eced0dfc08f74f7199c42399bd10034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
