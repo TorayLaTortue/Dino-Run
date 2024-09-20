@@ -209,6 +209,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+
   m_GameObject: {fileID: 296789042}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -717,6 +718,8 @@ MonoBehaviour:
   - prefab: {fileID: 891003334978117580, guid: 0487003dd11594172805a80c0fc99da2, type: 3}
     spawnChance: 0.1
   - prefab: {fileID: 2493972133332499727, guid: 13b161ef08dc642e7a61a2729fd76141, type: 3}
+    spawnChance: 0.05
+  - prefab: {fileID: 6930948338135234611, guid: ec16d5aa032e8ea45a701479c2974994, type: 3}
     spawnChance: 0.05
   minSpawnRate: 1
   maxSpawnRate: 2
@@ -1528,8 +1531,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b887d14df96b51442abc69ff6f6c5163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cooldownText: {fileID: 1798730961}
   gravity: 19.62
   jumpForce: 8
+  objects:
+  - prefab: {fileID: 1746797733073528, guid: 7949930a4be82f14497a46200e300772, type: 3}
+  spawnCooldown: 2
+  fireballOffset: {x: 1, y: 0, z: 0}
 --- !u!114 &1447880016
 MonoBehaviour:
   m_ObjectHideFlags: 0
