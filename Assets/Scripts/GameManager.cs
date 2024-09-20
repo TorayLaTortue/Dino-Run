@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
 
     private float score;
-    public float Score => score.
+    public float Score => score;
 
 
     private void Awake()
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
 
 
 
-    private vouid UpdateHiscore()
+    private void UpdateHiscore()
     {
         float hiscore = PlayerPrefs.GetFloat("hiscore", 0);
 
