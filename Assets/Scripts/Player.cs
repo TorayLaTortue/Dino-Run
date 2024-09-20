@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     private CharacterController character;
     private Vector3 direction;
+    public TextMeshProUGUI cooldownText;
     public float gravity = 9.81f * 2f;
     public float jumpForce = 8f;
 
@@ -20,6 +22,7 @@ public class Player : MonoBehaviour
     public Vector3 fireballOffset = new Vector3(1f, 0f, 0f); // Offset to spawn fireball slightly in front of the player
 
     private bool canSpawn = true; 
+
     private void Awake()
     {
         character = GetComponent<CharacterController>();
@@ -44,9 +47,17 @@ public class Player : MonoBehaviour
             }
         }
 
+        if (!canSpawn)
+        {
+            cooldownText.gameObject.SetActive(true);
+        }
+        else
+        {
+            cooldownText.gameObject.SetActive(false);
+        }
+
         character.Move(direction * Time.deltaTime);
 
-       
         if (Input.GetKeyDown(KeyCode.RightArrow) && canSpawn)
         {
             ShootFireball();
@@ -54,28 +65,33 @@ public class Player : MonoBehaviour
     }
 
     private void ShootFireball()
-{
-    foreach (SpawnableObject obj in objects)
     {
-        // Calculate the spawn position
-        Vector3 spawnPosition = transform.position + fireballOffset;
-        spawnPosition.y = transform.position.y; // Set y to player's y position
+        foreach (SpawnableObject obj in objects)
+        {
+            Vector3 spawnPosition = transform.position + fireballOffset;
+            spawnPosition.y = transform.position.y;
 
-        // Instantiate the fireball at the calculated spawn position
-        Instantiate(obj.prefab, spawnPosition, obj.prefab.transform.rotation);
-        
-        canSpawn = false; // Disable spawning during cooldown
-        StartCoroutine(SpawnCooldown()); // Start cooldown coroutine
-        break; 
+            Instantiate(obj.prefab, spawnPosition, obj.prefab.transform.rotation);
+            
+            canSpawn = false; // Disable spawning during cooldown
+            StartCoroutine(SpawnCooldown()); // Start cooldown coroutine
+            break; 
+        }
     }
-}
 
-
-    // Coroutine to handle cooldown
     private IEnumerator SpawnCooldown()
     {
-        yield return new WaitForSeconds(spawnCooldown); // Wait for cooldown duration
+        float remainingCooldown = spawnCooldown; // Track remaining cooldown time
+
+        while (remainingCooldown > 0)
+        {
+            cooldownText.text = "Cooldown: " + Mathf.Ceil(remainingCooldown); // Update the text
+            yield return new WaitForSeconds(1f); // Wait for 1 second
+            remainingCooldown -= 1f; // Decrease the remaining cooldown
+        }
+
         canSpawn = true; // Enable spawning after cooldown
+        cooldownText.gameObject.SetActive(false); // Hide cooldown text
     }
 
     private void OnTriggerEnter(Collider other)
