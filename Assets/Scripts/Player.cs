@@ -13,15 +13,13 @@ public class Player : MonoBehaviour
     public struct SpawnableObject
     {
         public GameObject prefab;
-        [Range(0f, 1f)]
-        public float spawnChance;
     }
 
     public SpawnableObject[] objects;
-    public float spawnCooldown = 2f; // Cooldown duration
+    public float spawnCooldown = 4f; // Cooldown duration
+    public Vector3 fireballOffset = new Vector3(1f, 0f, 0f); // Offset to spawn fireball slightly in front of the player
 
-    private bool canSpawn = true; // Tracks cooldown state
-
+    private bool canSpawn = true; 
     private void Awake()
     {
         character = GetComponent<CharacterController>();
@@ -48,7 +46,7 @@ public class Player : MonoBehaviour
 
         character.Move(direction * Time.deltaTime);
 
-        // Detect left arrow key press and spawn object if cooldown allows
+       
         if (Input.GetKeyDown(KeyCode.RightArrow) && canSpawn)
         {
             ShootFireball();
@@ -56,16 +54,22 @@ public class Player : MonoBehaviour
     }
 
     private void ShootFireball()
+{
+    foreach (SpawnableObject obj in objects)
     {
-        foreach (SpawnableObject obj in objects)
-        {      
-            // Instantiate the prefab at the spawnPoint position and rotation
-            Instantiate(obj.prefab);
-            canSpawn = false; // Disable spawning during cooldown
-            StartCoroutine(SpawnCooldown()); // Start cooldown coroutine
-            break; // Only spawn one object per press
-        }
+        // Calculate the spawn position
+        Vector3 spawnPosition = transform.position + fireballOffset;
+        spawnPosition.y = transform.position.y; // Set y to player's y position
+
+        // Instantiate the fireball at the calculated spawn position
+        Instantiate(obj.prefab, spawnPosition, obj.prefab.transform.rotation);
+        
+        canSpawn = false; // Disable spawning during cooldown
+        StartCoroutine(SpawnCooldown()); // Start cooldown coroutine
+        break; 
     }
+}
+
 
     // Coroutine to handle cooldown
     private IEnumerator SpawnCooldown()
@@ -76,7 +80,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle"))
+        if (other.CompareTag("Obstacle") || other.CompareTag("Tree"))
         {
             GameManager.Instance.GameOver();
         }
