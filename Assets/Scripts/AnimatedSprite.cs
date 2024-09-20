@@ -7,8 +7,8 @@ public class AnimatedSprite : MonoBehaviour
     public Sprite[] sprites;
 
     private SpriteRenderer spriteRenderer;
-    
     private int frame;
+
 
     public void Awake ()
     {
